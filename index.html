@@ -1,65 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Quadratic_equation</title>
+    <title>Quadratic Equation Solver</title>
+    <script>
+        var a, b, c;
+        var outputText;
+        
+        function validate() {
+        
+            // get the input
+            a = document.forms["input_form"]["aindex"].value;
+            b = document.forms["input_form"]["bindex"].value;
+            c = document.forms["input_form"]["cindex"].value;
+            
+            // validate a, b and c
+            if (a == 0) {
+                outputText = "<em>a</em> не може бути рівним нулю!";
+            } 
+            else if (isNaN(a)) {
+                outputText = "<em>a</em> повинне бути числом!";
+            } 
+            else if (isNaN(b)) {
+                outputText = "<em>b</em> повинне бути числом!";
+            } 
+            else if (isNaN(c)) {
+                outputText = "<em>c</em> повинне бути числом!";
+            } 
+            else {
+                // calculate the result using x = (-b +- sqrt(b^2 - 4ac)) / 2a
+                var x1 = (-b - Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a);
+                var x2 = (-b + Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2 * a);
+                outputText = "Для рівняння <strong>" + (a == 1 ? "" : a) + "x\u00B2 + " + (b == 1 ? "" : b) + "x + " + c + " = 0</strong>, x1= <strong>" + x1 + "</strong> x2= <strong>" + x2 + "</strong>";
+            }
+            
+            // output the result (or errors)
+            document.getElementById("output_text").innerHTML = outputText;
+        }
+    </script>
 </head>
-    <body>
-  
-    <div align="center">
-    <b>Решение квадратного уравнения a&middot;x&sup2; + b&middot;x + c = 0.</b>
-    <form name="square" action="javascript:square_equation()">
-    a <input name="square_a" type="text" value="1" size="4">
-    b <input name="square_b" type="text" value="2" size="4">
-    c <input name="square_c" type="text" value="1" size="4">
-    <input type="submit" value="посчитать">
+
+<body>
+
+    <p>Прошу ввести коеффіцієнти <strong>a</strong>, <strong>b</strong> and <strong>c</strong> квадратного рівняння виду <strong>ax&#x00B2; + bx + c = 0</strong></p>
+    
+    <form name="input_form" action="javascript:validate();">
+        a: <input type="text" name="aindex" size="5" required>
+        b: <input type="text" name="bindex" size="5" required>
+        c: <input type="text" name="cindex" size="5" required>
+        <br><br>
+        <input type="submit" value="Розрахувати">
     </form>
-    Решение: <span id="square_sol">Введите коэффициенты и нажмите "посчитать"</span>
-    </div>
-
-<script language="javascript">
-
-function square_equation() {
-  var a = document.square.square_a.value;
-  var b = document.square.square_b.value;
-  var c = document.square.square_c.value;
-  var sol = document.getElementById("square_sol");
-
-  var d = b * b - 4 * a * c;
-  if ( d < 0 ) {
-    string = "пара комплексно-сопряженных корней<br>x<sub>1</sub> = (";
-    string += - b / ( 2 * a );
-    string += ", ";
-    string += Math.sqrt( -d ) / ( 2 * a );
-    string += "), x<sub>2</sub> = (";
-    string += - b / ( 2 * a);
-    string += ", ";
-    string += - Math.sqrt( -d ) / ( 2 * a );
-    string += ").";
-  } else {
-      if ( d == 0 ) {
-        string = "два одинаковых вещественных корня:<br>x<sub>1</sub> = x<sub>2</sub> = ";
-        string += -b / ( 2 * a );
-        string += ".";
-      } else {
-        string = "два различных вещественных корня:<br>x<sub>1</sub> = ";
-        string += -b / ( 2 * a ) - Math.sqrt( d ) / ( 2 * a );
-        string += ", x<sub>2</sub> = ";
-        string += -b / ( 2 * a ) + Math.sqrt( d ) / ( 2 * a );
-        string += ".";
-      }
-  }
-  sol.innerHTML = string;
-}
-</script>
-
+    
+    <p id="output_text"/>
 
 </body>
+
 </html>
-
-
-
-
-
